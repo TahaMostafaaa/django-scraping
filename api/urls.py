@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from .views import *
 
 
 urlpatterns = [
-
-    path('',views.getData)
-
+    path("/records", Records.as_view(), name="record"),
+    path("/country", Countries.as_view(), name="country"),
+    path("/sector", Sectors.as_view(), name="sector"),
 ]

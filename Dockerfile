@@ -1,6 +1,6 @@
-FROM python:3.8-slim-buster
+FROM python:3.8-alpine
 
-ENV PYTHONBUFFERED=1
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /django
 

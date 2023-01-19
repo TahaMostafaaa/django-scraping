@@ -2,16 +2,16 @@
 from rest_framework import generics
 from scrap.models import Record,Sector,Country
 
-from .serializers import RecordSerializer,SectorSerializer,CountrySerializer
+from api.serializers import RecordSerializer,SectorSerializer,CountrySerializer
 
 class Records(generics.ListAPIView):
-    list = Record.objects.all()
-    serlize = RecordSerializer
+    queryset = Record.objects.all()
+    serializer_class = RecordSerializer
 
 class Sectors(generics.ListAPIView):
-    list = Sector.objects.all()
-    serlize = SectorSerializer
+    queryset = Sector.objects.all()
+    serializer_class = SectorSerializer
 
 class Countries(generics.ListAPIView):
-    list = Country.objects.all()
-    serlize = CountrySerializer
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer

@@ -1,6 +1,6 @@
 # Create your views here.
 from rest_framework import generics
-from .models import Record,Sector,Country
+from scrap.models import Record,Sector,Country
 
 from .serializers import RecordSerializer,SectorSerializer,CountrySerializer
 

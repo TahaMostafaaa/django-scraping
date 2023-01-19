@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Record,Sector,Country
+from scrap.models import Record,Sector,Country
 
 class RecordSerializer(serializers.ModelSerializer):
 

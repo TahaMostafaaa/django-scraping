@@ -27,32 +27,31 @@ class ScrapRecords:
         self.driver.close()
 
     def get_records(self):
-        print("== Start get Records ==")
+        logger.warning("== Start Scrapping Records ==")
         try:        
             self.driver.get(self.url)
         except Exception as ex:
             print(ex)
-        print("== Start get Records ==")
         rows = WebDriverWait(self.driver, 30, ignored_exceptions=ignored_exceptions).until(
                 EC.visibility_of_all_elements_located((By.CSS_SELECTOR,".row-list")))
         rows = rows[1:]
         records = []
-        for row in rows:
+        for idx, row in enumerate(rows):
             record_row = self.get_record(row)
             records.append(record_row)
+            logger.warning(f"Record Num. {idx+1} Done")
+
+        logger.warning("== Returning Records to save ==")
         return records
 
     def get_record(self, row):
-        print("== row ==")
-        print(row.text)
-        # self.driver.execute_script("arguments[0].scrollIntoView();", row) ## keep scrolling to fetch all records
         records = row.find_elements(By.XPATH, "./*")
-        date,title,country,sectors,amount = records[0].text,records[1].text,records[2].text,records[3].text,records[4].text
- 
+        date,title,country,sectors,signed_amount = records[0].text,records[1].text,records[2].text,records[3].text,records[4].text
+
         return {
             "date": datetime.strptime(date, "%d %B %Y").date(),
             "title": title,
             "country": country,
             "sectors": sectors,
-            "amount": amount,
+            "signed_amount": signed_amount,
         }

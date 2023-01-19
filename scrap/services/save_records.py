@@ -1,32 +1,35 @@
 
-from models import Record,Country,Sector
+from scrap.models import Record,Country,Sector
+import logging
 
-
+logger = logging.getLogger(__name__)
 
 class RecordsRepo:
 
 
     def save_record(self,record):
 
+        logger.warning("== Start Saving records ==")
+
         date = record.get("date")
         title = record.get("title")
         signed_amount = record.get("signed_amount")
 
         sectors = record.get('sectors').split(",")
-        sectors_objs = []
+        # sectors_objs = set()
 
-        for sector in sectors:
-            sectors_objs.append(Sector.objects.get_or_create(name=sector.strip())[0])
+        country = Country.objects.get_or_create(name=record.get('country'))[0]
 
-        country = Country.objects.get_or_create(name=record.get('country').strip())[0]
 
         record_obj = Record.objects.create(
             signature_date=date,
             country=country,
-            signed_amount_with_currency=signed_amount,
+            signed_amount=signed_amount,
             title=title,
-            sectors=sectors_objs
+            # sectors=sectors_objs
         )
+        for sector in sectors:
+            record_obj.sectors.add(Sector.objects.get_or_create(name=sector)[0])
 
         record_obj.save()
 

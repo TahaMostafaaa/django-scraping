@@ -7,6 +7,7 @@ class RecordSerializer(serializers.ModelSerializer):
         model = Record
         fields = '__all__'
 
+
 class CountrySerializer(serializers.ModelSerializer):
 
     class Meta:

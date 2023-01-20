@@ -10,6 +10,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         logger.warning("== Start handle command ==")
         records = ScrapRecords().get_records()
+        logger.warning("== Start Saving records ==")
         for record in records:
             RecordsRepo().save_record(record)
         print(records)

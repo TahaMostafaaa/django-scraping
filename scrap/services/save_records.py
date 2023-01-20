@@ -9,8 +9,6 @@ class RecordsRepo:
 
     def save_record(self,record):
 
-        logger.warning("== Start Saving records ==")
-
         date = record.get("date")
         title = record.get("title")
         signed_amount = record.get("signed_amount")
